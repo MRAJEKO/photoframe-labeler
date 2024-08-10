@@ -3,7 +3,7 @@ forever stop -c "npm start" ./
 # Remove any changes to the code locally
 git reset --hard HEAD
 
-git pull origin main --force
+git pull origin master --force
 
 # Install app packages for the root
 npm i
