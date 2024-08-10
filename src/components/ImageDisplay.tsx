@@ -23,18 +23,25 @@ const ImageDisplay = ({
 
   return (
     <>
-      <div className="flex flex-col gap-2 items-center justify-center h-full overflow-hidden relative">
+      <div className="flex flex-col gap-2 items-center justify-center h-full overflow-hidden">
         {current ? (
-          <Link href={baseUrl + current} target="_blank">
-            <Image
-              onLoad={() => setLoading(false)}
-              className="rounded-xl"
-              src={baseUrl + current}
-              width={1920}
-              height={1080}
-              alt=""
-            />
-          </Link>
+          <div className="relative">
+            <Link href={baseUrl + current} target="_blank">
+              <Image
+                onLoad={() => setLoading(false)}
+                className="rounded-xl aspect-video w-full"
+                src={baseUrl + current}
+                width={1920}
+                height={1080}
+                alt=""
+              />
+            </Link>
+            {loading && (
+              <div className="font-semibold top-0 text-xl absolute h-fit w-full backdrop-blur-sm aspect-video bg-black/80 text-white grid place-items-center">
+                Loading next image...
+              </div>
+            )}
+          </div>
         ) : (
           <div className="w-full bg-yellow-500/5 aspect-video rounded-xl grid place-items-center">
             <p className="font-bold text-xl text-yellow-500/40">
@@ -45,11 +52,6 @@ const ImageDisplay = ({
         <p className="text-sm font-semibold text-gray-300">
           {totalImages ? imageNumber : "0"} / {totalImages}
         </p>
-        {loading && (
-          <div className="font-semibold text-xl absolute h-[full] w-full backdrop-blur-xl bg-black/40 text-white grid place-items-center">
-            Loading next image...
-          </div>
-        )}
       </div>
     </>
   );
