@@ -1,17 +1,42 @@
+"use client";
+
 import Container from "@/components/Container";
-import images from "@/lib/images";
+import images, { IImages } from "@/lib/images";
+import { useEffect, useState } from "react";
+import { MagnifyingGlass } from "react-loader-spinner";
 
-export default async function Home() {
-  const imageNames = await images.getAll();
+const protocol = "http";
+const host = "192.168.0.111";
+const port = "3000";
+const path = "/images";
 
-  if (!imageNames) return <div>No images found</div>;
+const baseUrl = `${protocol}://${host}:${port}${path}/`;
 
-  const protocol = process.env.PHOTOFRAME_PROTOCOL;
-  const host = process.env.PHOTOFRAME_HOST;
-  const port = process.env.PHOTOFRAME_PORT;
-  const path = process.env.PHOTOFRAME_PATH;
+export default function Home() {
+  const [imageNames, setImageNames] = useState<null | IImages>(null);
 
-  const baseUrl = `${protocol}://${host}:${port}${path}/`;
+  useEffect(() => {
+    images.getAll(baseUrl).then((images) => setImageNames(images));
+  }, []);
+
+  if (!imageNames)
+    return (
+      <div className="h-screen w-screen grid place-items-center">
+        <MagnifyingGlass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="magnifying-glass-loading"
+          wrapperStyle={{}}
+          wrapperClass="magnifying-glass-wrapper"
+          glassColor="#c0efff"
+          color="#eab308"
+        />
+        <p className="fixed bottom-5 text-white/30 text-xl font-semibold">
+          Loading...
+        </p>
+      </div>
+    );
 
   return (
     <>

@@ -9,11 +9,9 @@ export interface IImages {
   images: string[];
 }
 
-export const getAll = async () => {
+export const getAll = async (url: string) => {
   try {
-    const response = await axios.get(
-      `http://${process.env.PHOTOFRAME_HOST}:${process.env.PHOTOFRAME_PORT}/images`
-    );
+    const response = await axios.get(url);
 
     return (await response.data) as IImages;
   } catch (error) {
