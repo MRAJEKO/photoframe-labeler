@@ -4,7 +4,6 @@ import { filterWithDescription, IImages } from "@/lib/images";
 import ImageDisplay from "./ImageDisplay";
 import DescriptionArea from "./DescriptionArea";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 interface IProps {
   images: IImages;
@@ -70,7 +69,7 @@ const Container = ({ images: rawImages, baseUrl }: IProps) => {
       {images.slice(offset).map((image, index) => {
         if (index > 9) return null;
         return (
-          <Image
+          <img
             className="h-0 w-0 absolute"
             key={image}
             src={baseUrl + image}

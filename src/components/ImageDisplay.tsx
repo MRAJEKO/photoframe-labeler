@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -27,7 +26,7 @@ const ImageDisplay = ({
         {current ? (
           <div className="relative">
             <Link href={baseUrl + current} target="_blank">
-              <Image
+              <img
                 onLoad={() => setLoading(false)}
                 className="rounded-xl aspect-video w-full"
                 src={baseUrl + current}
